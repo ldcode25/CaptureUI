@@ -36,6 +36,18 @@
           }
         }
       }
+    },
+    "NSPhotoLibraryAddUsageDescription" : {
+      "comment" : "Privacy - Photo Library Additions Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The app saves captured photos and recorded videos to your Photo Library."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

@@ -8,6 +8,7 @@
 import AVKit
 import CaptureUI
 import Logger
+import Photos
 import SwiftUI
 
 struct MainView: View {
@@ -52,6 +53,15 @@ struct MainView: View {
                                         let uiImage = try await Task.detached {
                                             try image.renderUIImage()
                                         }.value
+
+                                        do {
+                                            try await PHPhotoLibrary.shared().performChanges {
+                                                PHAssetChangeRequest.creationRequestForAsset(from: uiImage)
+                                            }
+                                        } catch {
+                                            log(error: error)
+                                        }
+
                                         captureState = .captured(uiImage: uiImage)
                                     } catch {
                                         log(error: error)
@@ -63,6 +73,15 @@ struct MainView: View {
                                     Task {
                                         do {
                                             let url = try await output.startRecording()
+
+                                            do {
+                                                try await PHPhotoLibrary.shared().performChanges {
+                                                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+                                                }
+                                            } catch {
+                                                log(error: error)
+                                            }
+
                                             let player = AVPlayer(url: url)
                                             captureState = .recorded(player: player)
                                         } catch {
