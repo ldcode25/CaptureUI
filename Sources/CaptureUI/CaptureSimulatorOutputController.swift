@@ -8,8 +8,6 @@
 #if targetEnvironment(simulator)
 import CoreImage
 import Foundation
-// TODO: Generate video and photo data by the code for simulator.
-import SimulatorResources
 
 private enum Error: Swift.Error {
     case failed(reason: String)
@@ -24,43 +22,35 @@ final class CaptureSimulatorOutputController: NSObject {
         return []
     }
 
-    private var _captureUniqueID: Int64 = 0
-
-    private func nextCaptureUniqueID() -> Int64 {
-        _captureUniqueID += 1
-        return _captureUniqueID
-    }
-
     func capture() async throws -> CIImage {
-        let data = switch lastConfiguredDevice {
-        case .frontCamera:
-            SimulatorResources.frontPhotoData
-        case .backCamera:
-            SimulatorResources.backPhotoData
-        }
-
-        let image = try await Task.detached {
-            guard let image = CIImage(data: data) else {
-                throw Error.failed(reason: "Failed to create CIImage")
+        let device = lastConfiguredDevice
+        return try await Task.detached {
+            switch device {
+            case .frontCamera:
+                SimulatorSupport.shared.frontMockedPhoto
+            case .backCamera:
+                SimulatorSupport.shared.backMockedPhoto
             }
-
-            return image
         }.value
-
-        return image
     }
 
     private struct Recording {
         var fileURL: URL
+        var beginTime: TimeInterval = Date.timeIntervalSinceReferenceDate
         var continuation: CheckedContinuation<URL, Swift.Error>
 
+        var durationSinceBeginTime: TimeInterval {
+            Date.timeIntervalSinceReferenceDate - beginTime
+        }
+
         func stop() {
-            do {
-                let data = SimulatorResources.videoData
-                try data.write(to: fileURL)
-                continuation.resume(returning: fileURL)
-            } catch {
-                continuation.resume(throwing: error)
+            Task.detached {
+                do {
+                    try await SimulatorSupport.shared.exportMockedVideo(at: fileURL, duration: durationSinceBeginTime)
+                    continuation.resume(returning: fileURL)
+                } catch {
+                    continuation.resume(throwing: error)
+                }
             }
         }
     }

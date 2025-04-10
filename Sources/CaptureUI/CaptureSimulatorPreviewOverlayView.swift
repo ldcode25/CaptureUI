@@ -7,8 +7,6 @@
 
 #if targetEnvironment(simulator)
 import Foundation
-// TODO: Generate video and photo data by the code for simulator.
-import SimulatorResources
 import SwiftUI
 
 private struct Stripes: View {
@@ -46,28 +44,41 @@ private extension Date {
 struct CaptureSimulatorPreviewOverlayView: View {
     var device: CaptureDevice = .frontCamera
 
-    private var sampleUIImage: UIImage {
-        let data = switch device {
-        case .frontCamera:
-            SimulatorResources.frontPhotoData
-        case .backCamera:
-            SimulatorResources.backPhotoData
-        }
-        return UIImage(data: data)!
-    }
+    @State
+    private var mockedUIImage: UIImage?
 
     var body: some View {
-        Image(uiImage: sampleUIImage)
-            .resizable()
-            .scaledToFill()
-            .overlay {
-                TimelineView(.animation) { context in
-                    Stripes(normalizedStripeOffset: context.date.tick)
-                        .foregroundStyle(.white)
-                        .background(.black)
-                        .opacity(0.5)
+        Group {
+            if let mockedUIImage {
+                Image(uiImage: mockedUIImage)
+                    .resizable()
+                    .scaledToFill()
+            } else {
+                Color.black
+            }
+        }
+        .overlay {
+            TimelineView(.animation) { context in
+                Stripes(normalizedStripeOffset: context.date.tick)
+                    .foregroundStyle(.white)
+                    .background(.black)
+                    .opacity(0.5)
+            }
+        }
+        .onChange(of: device, initial: true) { _, device in
+            Task.detached {
+                let image = switch device {
+                case .frontCamera:
+                    SimulatorSupport.shared.frontMockedPhoto
+                case .backCamera:
+                    SimulatorSupport.shared.backMockedPhoto
+                }
+                let uiImage = try image.renderUIImage()
+                Task { @MainActor in
+                    mockedUIImage = uiImage
                 }
             }
+        }
     }
 }
 

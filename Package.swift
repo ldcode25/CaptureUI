@@ -20,15 +20,11 @@ let package = Package(
         .target(
             name: "CaptureUI",
             dependencies: [
-                .target(name: "Logger"),
-                .target(name: "SimulatorResources")
+                .target(name: "Logger")
             ]
         ),
         .target(
             name: "Logger"
-        ),
-        .target(
-            name: "SimulatorResources"
         )
     ]
 )
